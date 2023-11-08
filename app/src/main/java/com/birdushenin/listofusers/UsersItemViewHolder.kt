@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class UsersItemViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+
     var PhotoUser: ImageView = view.findViewById(R.id.photo)
     val NameUser = view.findViewById<TextView>(R.id.name)
     val Surname = view.findViewById<TextView>(R.id.surname)
