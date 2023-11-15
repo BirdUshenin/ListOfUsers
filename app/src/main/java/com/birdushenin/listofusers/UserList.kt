@@ -2,10 +2,14 @@ package com.birdushenin.listofusers
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.birdushenin.listofusers.databinding.FragmentUserListBinding
 
@@ -25,6 +29,11 @@ class UserList : Fragment(), OnUserEditListener {
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        setFragmentResultListener("result_key") { _, result ->
+            val data = result.getString("data")
+            view?.findViewById<TextView>(R.id.name)?.text = data
+        }
 
             adapter.setOnUserItemClickListener(object: OnUserItemClickListener {
             override fun onUserItemClicked(user: Users) {
