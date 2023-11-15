@@ -2,13 +2,11 @@ package com.birdushenin.listofusers
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.birdushenin.listofusers.databinding.FragmentUserListBinding
@@ -34,8 +32,16 @@ class UserList : Fragment(), OnUserEditListener {
             val data = result.getString("data")
             view?.findViewById<TextView>(R.id.name)?.text = data
         }
+        setFragmentResultListener("result_key2") { _, result2 ->
+            val data = result2.getString("data")
+            view?.findViewById<TextView>(R.id.surname)?.text = data
+        }
+        setFragmentResultListener("result_key3") { _, result3 ->
+            val data = result3.getString("data")
+            view?.findViewById<TextView>(R.id.number)?.text = data
+        }
 
-            adapter.setOnUserItemClickListener(object: OnUserItemClickListener {
+        adapter.setOnUserItemClickListener(object : OnUserItemClickListener {
             override fun onUserItemClicked(user: Users) {
                 val fragmentB = EditUserFragment()
                 fragmentB.setOnUserEditListener(this@UserList)
@@ -43,15 +49,13 @@ class UserList : Fragment(), OnUserEditListener {
 
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragEdit, fragmentB)
-                    .addToBackStack("FragmentB")
+                    .addToBackStack("FragEdit")
                     .commit()
             }
         })
         recyclerView.adapter = adapter
         return binding.root
     }
-
-
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onUserEdited(user: Users) {
