@@ -1,9 +1,7 @@
 package com.birdushenin.listofusers
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 
 class AdapterUsers(private val userList: List<Users>) :
@@ -16,7 +14,7 @@ class AdapterUsers(private val userList: List<Users>) :
         return UsersItemViewHolder(view)
     }
 
-    fun setOnUserItemClickListener(listener: OnUserItemClickListener){
+    fun setOnUserItemClickListener(listener: OnUserItemClickListener) {
         clickListener = listener
     }
 
@@ -27,7 +25,6 @@ class AdapterUsers(private val userList: List<Users>) :
             clickListener?.onUserItemClicked(user)
         }
     }
-
 
     override fun getItemCount(): Int {
         return userList.size
