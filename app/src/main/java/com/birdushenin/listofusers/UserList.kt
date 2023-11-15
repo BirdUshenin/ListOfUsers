@@ -51,6 +51,8 @@ class UserList : Fragment(), OnUserEditListener {
         return binding.root
     }
 
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onUserEdited(user: Users) {
         val index = DataUsers.userServer.indexOfFirst { it.id == user.id }
