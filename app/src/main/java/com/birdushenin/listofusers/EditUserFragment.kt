@@ -1,13 +1,12 @@
 package com.birdushenin.listofusers
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import com.birdushenin.listofusers.databinding.FragmentEditUserBinding
 
 interface OnUserEditListener {
@@ -31,29 +30,32 @@ class EditUserFragment : Fragment() {
         val editTextNumber = binding.editTextNumber
 
         val buttonEditUser = binding.buttonEditUser
-        buttonEditUser.setOnClickListener{
+        buttonEditUser.setOnClickListener {
             val result = editTextName.text.toString()
             setFragmentResult("result_key", bundleOf("data" to result))
+            val result2 = editSurname.text.toString()
+            setFragmentResult("result_key2", bundleOf("data" to result2))
+            val result3 = editTextNumber.text.toString()
+            setFragmentResult("result_key3", bundleOf("data" to result3))
 
-                val updatedUser = Users(
+            val updatedUser = Users(
                 user.id,
                 user.photo,
-                    result,
-                editSurname.text.toString(),
-                editTextNumber.text.toString()
+                result,
+                result2,
+                result3
             )
-
             onUserEditListener.onUserEdited(updatedUser)
+            requireActivity().supportFragmentManager.popBackStack("FragmentUser", 0)
 
         }
         return binding.root
     }
 
-
-
     fun setOnUserEditListener(listener: OnUserEditListener) {
         onUserEditListener = listener
     }
+
     fun setUser(user: Users) {
         this.user = user
         if (::binding.isInitialized) {
