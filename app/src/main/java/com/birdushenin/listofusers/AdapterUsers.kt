@@ -28,6 +28,7 @@ class AdapterUsers(private val userList: List<Users>) :
         }
     }
 
+
     override fun getItemCount(): Int {
         return userList.size
     }

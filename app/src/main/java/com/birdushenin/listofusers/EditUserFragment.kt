@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import com.birdushenin.listofusers.databinding.FragmentEditUserBinding
 
 interface OnUserEditListener {
@@ -13,9 +16,9 @@ interface OnUserEditListener {
 
 class EditUserFragment : Fragment() {
 
+    private lateinit var binding: FragmentEditUserBinding
     private lateinit var user: Users
     private lateinit var onUserEditListener: OnUserEditListener
-    private lateinit var binding: FragmentEditUserBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +31,26 @@ class EditUserFragment : Fragment() {
         val editTextNumber = binding.editTextNumber
 
         val buttonEditUser = binding.buttonEditUser
-        buttonEditUser.setOnClickListener {
-            val updatedUser = Users(
+        buttonEditUser.setOnClickListener{
+            val result = editTextName.text.toString()
+            setFragmentResult("result_key", bundleOf("data" to result))
+
+                val updatedUser = Users(
                 user.id,
                 user.photo,
-                editTextName.text.toString(),
+                    result,
                 editSurname.text.toString(),
                 editTextNumber.text.toString()
             )
+
             onUserEditListener.onUserEdited(updatedUser)
+
         }
         return binding.root
     }
+
+
+
     fun setOnUserEditListener(listener: OnUserEditListener) {
         onUserEditListener = listener
     }
