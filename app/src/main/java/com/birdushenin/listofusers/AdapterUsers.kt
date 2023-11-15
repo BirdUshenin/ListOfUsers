@@ -1,9 +1,7 @@
 package com.birdushenin.listofusers
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 
 class AdapterUsers(private val userList: List<Users>) :
